@@ -25,11 +25,23 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) 
+        {
+
         $request->authenticate();
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        return redirect('/dashboard');
+
+        }
+        else
+        {
+
+            return redirect()->intended(RouteServiceProvider::HOME);
+
+        }
+
     }
 
     /**

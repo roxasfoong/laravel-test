@@ -8,10 +8,19 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
+        <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+        <link rel="stylesheet" href="{{asset('css/sweetalert2.min.css')}}">
+        <link rel="stylesheet" href="{{asset('css/dataTables.bootstrap5.min.css')}}">
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
+        <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
+        <script src="{{asset('js/jquery-3.7.1.min.js')}}"></script>
+        <script src="{{asset('js/sweetalert2.min.js')}}"></script>
+        <script src="{{asset('js/dataTables.bootstrap5.min.js')}}"></script>
+        <script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
+        
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
@@ -32,5 +41,23 @@
                 {{ $slot }}
             </main>
         </div>
+       
+		<script>
+			$(document).ready(function() {
+				$('#example').DataTable();
+			  } );
+		</script>
+		<script>
+			$(document).ready(function() {
+				var table = $('#example2').DataTable( {
+					lengthChange: false,
+					buttons: [ 'copy', 'excel', 'pdf', 'print']
+				} );
+			 
+				table.buttons().container()
+					.appendTo( '#example2_wrapper .col-md-6:eq(0)' );
+			} );
+		</script>
+		<!--app JS-->
     </body>
 </html>
