@@ -16,14 +16,14 @@ class ProductController extends Controller
 
     public function listAllProduct(){
         $id = Auth::user()->id;
-        $productList = Product::where('user_id', $id)->orderBy('created_at', 'desc')->get();
+        $productList = Product::where('user_id', $id)->orderBy('created_at', 'asc')->get();
         return view('dashboard',compact('productList'));
     }
 
     public function showProductPage($productID)
     {
         $id = Auth::user()->id;
-        if (!is_numeric($productID)) {
+        if (!is_numeric($productID) || $productID === null || $productID === '') {
             $productID = 0;
         }
 
@@ -36,16 +36,34 @@ class ProductController extends Controller
         return view('show_product_page', compact('findProduct'));
     }
 
-    public function deleteProduct(){
+    public function deleteProduct($productID){
         $id = Auth::user()->id;
-        $productList = Product::where('user_id', $id)->orderBy('created_at', 'desc')->get();
-        return view('dashboard',compact('productList'));
+        if (!is_numeric($productID) || $productID === null || $productID === '') {
+            $productID = 0;
+        }
+
+        $findProduct = Product::where('user_id', $id)->where('id', $productID)->first();
+
+        if (!$findProduct) {
+            return redirect()->route('dashboard')->with('error', 'Product not found or You have no right to access.');
+        }
+        
+        $success = $findProduct->delete();
+
+    if ($success) {
+        // Deletion was successful
+        return redirect()->route('dashboard')->with('success', 'Product deleted successfully');
+    } else {
+        // Deletion failed
+        return redirect()->route('dashboard')->with('error', 'Failed to delete product');
+    }
+       
     }
 
     public function editProductPage($productID)
     {
         $id = Auth::user()->id;
-        if (!is_numeric($productID)) {
+        if (!is_numeric($productID) || $productID === null || $productID === '') {
             $productID = 0;
         }
 
