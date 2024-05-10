@@ -10,43 +10,61 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="container">
-                        <form action="#" method="post">
+                        <form name="createProduct" id="createProduct" action="{{route('product.create')}}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="row mb-3">
                                 <div class="col-6 d-flex justify-content-start align-items-center">
                                     <h1>Add New Product</h1>
                                 </div>
                                 <div class="col-6 d-flex justify-content-end align-items-center">
-                                    <button type="button" class="btn btn-primary">Back</button>
+                                <a href="{{ route('dashboard') }}" class="btn btn-primary">Back</a>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group mb-3">
                                 <label for="name">Name:</label>
-                                <input type="text" class="form-control" id="name" name="name" required>
+                                <input placeholder="Name"="text" class="form-control" id="name" name="name" required>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group mb-3">
                                 <label for="price">Price:</label>
-                                <input type="number" class="form-control" id="price" name="price" step="0.01" required>
+                                <input placeholder="99.90" type="number" class="form-control" id="price" name="price" step="0.01" required>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group mb-3">
                                 <label for="detail">Detail:</label>
-                                <textarea class="form-control" id="detail" name="detail" rows="4" required></textarea>
+                                <textarea placeholder="Detail" class="form-control" id="detail" name="detail" rows="4" required></textarea>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group mb-3">
                                 <label for="publish_status">Publish Status:</label>
                                 <div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="publish_status" id="publish_yes" value="yes" required>
+                                        <input class="form-check-input" type="radio" name="publish_status" id="publish_yes" value="Yes" required checked>
                                         <label class="form-check-label" for="publish_yes">Yes</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="publish_status" id="publish_no" value="no" required>
+                                        <input class="form-check-input" type="radio" name="publish_status" id="publish_no" value="No" required>
                                         <label class="form-check-label" for="publish_no">No</label>
                                     </div>
                                 </div>
                             </div>
                             <button type="submit" class="d-flex justify-content-center align-items-center btn btn-primary">Submit</button>
                         </form>
+                        <div class="row">
+                            <div class="col-12">
+                                @if(session('error'))
+                                <div class="alert alert-success">
+                                    {{ session('error') }}
+                                </div>
+                                @endif
+                                @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

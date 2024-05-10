@@ -9,7 +9,16 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    show page
+                <div class="row">
+                                <div class="col-6 d-flex justify-content-start align-items-center"><h1>Show Product</h1></div>
+                                <div class="col-6 d-flex justify-content-end align-items-center"><a href="{{ route('dashboard') }}" class="btn btn-primary">Back</a></div>
+                                @foreach ($findProduct as $item)
+                                <div class="col-12"><b>Name:</b> {{$item->name}}</div>
+                                <div class="col-12"><b>Price:</b> {{$item->price}}</div>
+                                <div class="col-12"><b>Details:</b> {{$item->detail}}</div>
+                                <div class="col-12"><b>Publish:</b> {{$item->publish}}</div>
+                                @endforeach
+                </div>
                 </div>
             </div>
         </div>

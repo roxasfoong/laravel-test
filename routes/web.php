@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ClassRoomController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,9 +29,6 @@ Route::get('/', function () {
     }
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     //Profile
@@ -37,10 +36,16 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    //Dashboard
+    Route::get('/dashboard', [ProductController::class, 'listAllProduct'])->name('dashboard');
+
     //Product
-    Route::get('/dashboard/show-product-page', [ProductController::class, 'showProductPage'])->name('product.show');
-    Route::get('/dashboard/edit-product-page', [ProductController::class, 'editProductPage'])->name('product.edit');
-    Route::get('/dashboard/create-product-page', [ProductController::class, 'createProductPage'])->name('product.create');
+    Route::get('/dashboard/show-product-page/{productID}', [ProductController::class, 'showProductPage'])->name('product.show');
+    Route::get('/dashboard/delete-product/{productID}', [ProductController::class, 'deleteProduct'])->name('product.delete');
+    Route::get('/dashboard/edit-product-page/{productID}', [ProductController::class, 'editProductPage'])->name('product.edit');
+    Route::post('/dashboard/edit-product', [ProductController::class, 'editProduct'])->name('edit.product');
+    Route::get('/dashboard/create-product-page', [ProductController::class, 'createProductPage'])->name('product.create.page');
+    Route::post('/dashboard/create-product', [ProductController::class, 'createProduct'])->name('product.create');
 
 });
 

@@ -14,7 +14,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-6 d-flex justify-content-start align-items-center">Laravel</div>
-                                <div class="col-6 d-flex justify-content-end align-items-center"><a href="{{ route('product.create') }}" class="btn btn-success">Create New Product</a></div>
+                                <div class="col-6 d-flex justify-content-end align-items-center"><a href="{{ route('product.create.page') }}" class="btn btn-success">Create New Product</a></div>
                             </div>
                         </div>
                         <div class="card-body">
@@ -27,22 +27,40 @@
                                             <th>Price(RM)</th>
                                             <th>Details</th>
                                             <th>Publish</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-
-                                    </tbody>
+                        @foreach ($productList as $key=> $item)
+                        <tr>
+                            <td>{{$key+1}}</td>
+                            <td>
+                                {{$item->name}}
+                            </td>
+                            <td>
+                                {{$item->price}}
+                            </td>
+                            <td>
+                            {{$item->detail}}
+                            </td>
+                            <td>
+                                {{$item->publish}}
+                            </td>
+                            <td>
+                            <a href ="{{route('product.show',$item->id)}}" class="btn btn-info" title="Edit">Show<i class="lni lni-eraser"></i></a> 
+                                <a href ="{{route('product.edit',$item->id)}}" class="btn btn-primary" title="Learning List">Edit<i class="lni lni-list"></i></a> 
+                                <a href ="{{route('product.delete',$item->id)}}" class="btn btn-danger" id="Delete">Delete <i class="lni lni-trash"></i></a> 
+                            </td>
+                            
+                        </tr>
+                        @endforeach 
+                    </tbody>
 
                                 </table>
                             </div>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-12"><a href="{{ route('product.show') }}" class="btn theme-btn theme-btn-sm theme-btn-white">Show<i class="la la-arrow-right icon ml-1"></i></a></div>
-                        <div class="col-12"><a href="{{ route('product.show') }}" class="btn theme-btn theme-btn-sm theme-btn-white">Edit<i class="la la-arrow-right icon ml-1"></i></a></div>
-                        <div class="col-12"><a href="{{ route('product.show') }}" class="btn theme-btn theme-btn-sm theme-btn-white">Delete<i class="la la-arrow-right icon ml-1"></i></a></div>
-                    </div>
                 </div>
             </div>
         </div>

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('name')->default('unknown')->nullable();
             $table->string('detail')->default('unknown')->nullable();
-            $table->decimal('price')->default(1.00)->nullable();
+            $table->decimal('price', 65, 2)->default(1.00)->nullable();
             $table->string('publish')->default('Yes')->nullable();
             $table->timestamps();
         });
